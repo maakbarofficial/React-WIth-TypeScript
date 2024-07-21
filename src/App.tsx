@@ -1,35 +1,29 @@
 import { useState } from "react";
-import Alert from "./components/Alert";
-import Button from "./components/Button";
-// import ListGroup from "./components/ListGroup";
-import Message from "./Message";
-import ListGroup from "./components/ListGroup";
-import { BsFillCalendarFill } from "react-icons/bs";
-import Like from "./components/Like";
-// import Button from "./components/Button/button";
+import Arrays from "./components/Arrays";
+import ArrayOfObjects from "./components/ArrayOfObjects";
+import Navbar from "./components/Navbar";
+import Cart from "./components/Cart";
+import ExpandableText from "./components/ExpandableText";
+import Objects from "./components/Objects";
+import NestedObjects from "./components/NestedObjects";
 
 function App() {
-  let items = ["New York", "San Francisco", "Tokyo", "London", "Paris"];
-  const handleSelectItem = (item: string) => {
-    console.log(item);
-  };
-
-  const [alertVisiable, setAlertVisibable] = useState(false);
-
+  const [cartItems, setCartItems] = useState(["Product 1", "Product2"]);
   return (
     <div>
-      {/* <Message /> */}
-      {/* <ListGroup /> */}
-      <ListGroup items={items} heading={"List"} onSelectItem={handleSelectItem} />
-      {alertVisiable && <Alert onClose={() => setAlertVisibable(false)}>My alert</Alert>}
-      {/* <Button color="primary" onClick={() => setAlertVisibable(true)}>
-        My Button
-      </Button> */}
-      <Button color="danger" onClick={() => setAlertVisibable(true)}>
-        My Button
-      </Button>
-      {/* <BsFillCalendarFill color="red" size="40" /> */}
-      <Like onClick={() => console.log("Clicked")} />
+      <Objects />
+      <NestedObjects />
+      <Arrays />
+      <ArrayOfObjects />
+      <Navbar cartItemsCount={cartItems.length} />
+      <Cart cartItems={cartItems} onClear={() => setCartItems([])} />
+      <ExpandableText maxChars={10}>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum rerum quidem repudiandae quam quod voluptate, dolorem at! Harum repellat voluptates nulla, sunt, similique minima voluptatibus
+        mollitia error sapiente, temporibus iure nam fugit id quo modi dolores accusamus asperiores maxime! Blanditiis, provident impedit corrupti architecto accusamus nihil voluptates cumque labore
+        inventore debitis ducimus reiciendis aut quibusdam? Ipsa, quaerat quos? Laboriosam praesentium atque dolorem, commodi perferendis at animi quasi eum, sed reprehenderit libero reiciendis ad
+        ipsam eaque quisquam consectetur deserunt ea optio impedit consequatur porro nesciunt nobis? Nobis laborum, nulla et dignissimos molestias, ratione quod veritatis aspernatur tenetur culpa quis
+        accusamus nisi!
+      </ExpandableText>
     </div>
   );
 }
