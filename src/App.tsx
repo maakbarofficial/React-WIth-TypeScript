@@ -1,29 +1,33 @@
 import { useState } from "react";
-import Arrays from "./components/Arrays";
-import ArrayOfObjects from "./components/ArrayOfObjects";
-import Navbar from "./components/Navbar";
-import Cart from "./components/Cart";
-import ExpandableText from "./components/ExpandableText";
-import Objects from "./components/Objects";
-import NestedObjects from "./components/NestedObjects";
+import ExpenseList from "./components/expense-tracker/components/ExpenseList";
+import Form from "./components/Form";
+import FormRef from "./components/FormRef";
+import FormState from "./components/FormState";
+import ExpenseFilter from "./components/expense-tracker/components/ExpenseFilter";
+import ExpenseForm from "./components/expense-tracker/components/ExpenseForm";
+import categories from "./components/expense-tracker/categories";
 
 function App() {
-  const [cartItems, setCartItems] = useState(["Product 1", "Product2"]);
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [expenses, setExpenses] = useState([
+    { id: 1, description: "aaa", amount: 10, category: "Utilities" },
+    { id: 2, description: "bbb", amount: 20, category: "Groceries" },
+    { id: 3, description: "ccc", amount: 30, category: "Entertainment" },
+    { id: 4, description: "ddd", amount: 40, category: "Transportation" },
+    { id: 5, description: "eee", amount: 50, category: "Healthcare" },
+    { id: 6, description: "eee", amount: 50, category: "Healthcare" },
+  ]);
+
+  const visibleExpenses = selectedCategory ? expenses.filter((e) => e.category === selectedCategory) : expenses;
+
   return (
     <div>
-      <Objects />
-      <NestedObjects />
-      <Arrays />
-      <ArrayOfObjects />
-      <Navbar cartItemsCount={cartItems.length} />
-      <Cart cartItems={cartItems} onClear={() => setCartItems([])} />
-      <ExpandableText maxChars={10}>
-        Lorem ipsum dolor sit amet consectetur adipisicing elit. Eum rerum quidem repudiandae quam quod voluptate, dolorem at! Harum repellat voluptates nulla, sunt, similique minima voluptatibus
-        mollitia error sapiente, temporibus iure nam fugit id quo modi dolores accusamus asperiores maxime! Blanditiis, provident impedit corrupti architecto accusamus nihil voluptates cumque labore
-        inventore debitis ducimus reiciendis aut quibusdam? Ipsa, quaerat quos? Laboriosam praesentium atque dolorem, commodi perferendis at animi quasi eum, sed reprehenderit libero reiciendis ad
-        ipsam eaque quisquam consectetur deserunt ea optio impedit consequatur porro nesciunt nobis? Nobis laborum, nulla et dignissimos molestias, ratione quod veritatis aspernatur tenetur culpa quis
-        accusamus nisi!
-      </ExpandableText>
+      {/* <FormRef />
+      <FormState /> */}
+      {/* <Form /> */}
+      <ExpenseForm onSubmit={(expense) => setExpenses([...expenses, { ...expense, id: expenses.length + 1 }])} />
+      <ExpenseFilter onSelectCategory={(category) => setSelectedCategory(category)} />
+      <ExpenseList expenses={visibleExpenses} onDelete={(id) => setExpenses(expenses.filter((e) => e.id != id))} />
     </div>
   );
 }
